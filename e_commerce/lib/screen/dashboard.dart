@@ -13,18 +13,27 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        backgroundColor: AppColor.mainColor,
+        centerTitle: true,
+        title: Text(
+          "Dashboard",
+          style: mTextStyle18(
+            mFontWeight: FontWeight.bold,
+            color: AppColor.white,
+          ),
+        ),
+      ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: Center(
-            child: Column(
-              children: [
-                Text(
-                  "Dashboard",
-                  style: mTextStyle24(mFontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Stay Tuned..!!!",
+                style: mTextStyle24(mFontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       ),

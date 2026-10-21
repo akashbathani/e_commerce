@@ -17,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     checkLogin();
   }
 
@@ -31,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(builder: (context) => BottomNavBarPage()),
       );
+      print("===========>$token");
     } else {
       Navigator.pushReplacement(
         context,

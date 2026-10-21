@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/bloc/cart/add_cart/add_cart_bloc.dart';
 import 'package:e_commerce/bloc/cart/add_cart/add_cart_event.dart';
 import 'package:e_commerce/bloc/cart/add_cart/add_cart_state.dart';
@@ -7,6 +8,7 @@ import 'package:e_commerce/bloc/category/category_state.dart';
 import 'package:e_commerce/bloc/product/product_bloc.dart';
 import 'package:e_commerce/bloc/product/product_event.dart';
 import 'package:e_commerce/bloc/product/product_state.dart';
+import 'package:e_commerce/screen/notification/notification_page.dart';
 import 'package:e_commerce/screen/product_detail_page.dart';
 import 'package:e_commerce/utils/appConstant/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int currentIndex = 0;
-  PageController pageController = PageController();
+  CarouselSliderController buttonCarouselController =
+      CarouselSliderController();
 
   int quantity = 0;
   bool isLoading = false;
@@ -103,9 +106,9 @@ class _HomePageState extends State<HomePage> {
             color: AppColor.grey.withOpacity(0.3),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12.0),
             child: Center(
-              child: Image.asset("asset/image/dashboardd.png", height: 20),
+              child: Image.asset("asset/image/dashboardd.png", height: 22),
             ),
           ),
         ),
@@ -115,9 +118,16 @@ class _HomePageState extends State<HomePage> {
             shape: BoxShape.circle,
             color: AppColor.grey.withOpacity(0.3),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: Icon(Icons.notifications_outlined)),
+          child: Center(
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                );
+              },
+              icon: Icon(Icons.notifications_outlined),
+            ),
           ),
         ),
       ],
@@ -209,24 +219,27 @@ class _HomePageState extends State<HomePage> {
       children: [
         SizedBox(
           height: 180,
-          child: PageView.builder(
-            controller: pageController,
-            onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
+          width: double.infinity,
+          child: CarouselSlider.builder(
+            carouselController: buttonCarouselController,
+
+            options: CarouselOptions(
+              autoPlay: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+            ),
             itemCount: banners.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                      image: AssetImage(banners[index]),
-                      fit: BoxFit.cover,
-                    ),
+            itemBuilder: (context, index, _) {
+              return Container(
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: AssetImage(banners[index]),
+                    fit: BoxFit.cover,
                   ),
                 ),
               );
@@ -234,7 +247,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(banners.length, (index) {
@@ -244,7 +257,9 @@ class _HomePageState extends State<HomePage> {
                 height: 6,
                 width: currentIndex == index ? 14 : 8,
                 decoration: BoxDecoration(
-                  color: currentIndex == index ? Colors.black : Colors.white,
+                  color: currentIndex == index
+                      ? AppColor.mainColor
+                      : AppColor.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
               );
@@ -378,11 +393,11 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () async {
                                 final prefs =
                                     await SharedPreferences.getInstance();
-                                final userId = prefs.getString("userId");
+
                                 context.read<AddCartBloc>().add(
                                   AddCartQuantityEvent(
-                                    productId: product.categoryId!,
-                                    userId: userId!,
+                                    productId: product.id!,
+                                    userId: "1",
                                     qty: "10",
                                   ),
                                 );

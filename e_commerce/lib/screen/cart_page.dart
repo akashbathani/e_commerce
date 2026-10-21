@@ -34,7 +34,7 @@ class _CartPageState extends State<CartPage> {
         centerTitle: true,
         title: Text(
           "My Cart",
-          style: mTextStyle20(
+          style: mTextStyle18(
             mFontWeight: FontWeight.bold,
             color: AppColor.white,
           ),
@@ -99,61 +99,70 @@ class _CartPageState extends State<CartPage> {
                           itemCount: state.viewCartData.length,
                           itemBuilder: (context, index) {
                             var cart = state.viewCartData[index];
-                            return Card(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 80,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(cart.image!),
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(cart.image!),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  cart.name!,
-                                                  style: mTextStyle20(
-                                                    mFontWeight:
-                                                        FontWeight.bold,
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    cart.name!,
+                                                    style: mTextStyle20(
+                                                      mFontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
                                                 ),
-                                              ),
-                                              BlocBuilder<
-                                                DeleteCartBloc,
-                                                DeleteCartState
-                                              >(
-                                                builder: (context, state) {
-                                                  if (state
-                                                      is DeleteCartLoadingState) {
-                                                    return Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    );
-                                                  }
-                                                  if (state
-                                                      is DeleteCartSuccessState) {
+                                                BlocBuilder<
+                                                  DeleteCartBloc,
+                                                  DeleteCartState
+                                                >(
+                                                  builder: (context, deleteState) {
+                                                    if (deleteState
+                                                        is DeleteCartLoadingState) {
+                                                      return Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                              color: AppColor
+                                                                  .mainColor,
+                                                            ),
+                                                      );
+                                                    }
+
                                                     return IconButton(
                                                       onPressed: () {
-                                                        print("===> pressed");
+                                                        debugPrint(
+                                                          "Delete pressed: ${cart.id}",
+                                                        );
+
                                                         context
                                                             .read<
                                                               DeleteCartBloc
@@ -165,81 +174,82 @@ class _CartPageState extends State<CartPage> {
                                                               ),
                                                             );
                                                       },
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.delete_outline,
                                                         color: Colors
                                                             .deepOrangeAccent,
                                                       ),
                                                     );
-                                                  }
-
-                                                  return Container();
-                                                },
-                                              ),
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                cart.price!,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
+                                                  },
                                                 ),
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  color: Colors.grey
-                                                      .withOpacity(0.2),
+                                              ],
+                                            ),
+
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  cart.price!,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 15,
-                                                        vertical: 4,
-                                                      ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.remove,
-                                                        size: 12,
-                                                        color: Colors.black,
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      Text(
-                                                        cart.quantity
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          50,
                                                         ),
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      InkWell(
-                                                        onTap: () {},
-                                                        child: Icon(
-                                                          Icons.add,
+                                                    color: AppColor.mainColor
+                                                        .withOpacity(0.7),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 15,
+                                                          vertical: 4,
+                                                        ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.remove,
                                                           size: 12,
                                                           color: Colors.black,
                                                         ),
-                                                      ),
-                                                    ],
+                                                        SizedBox(width: 8),
+                                                        Text(
+                                                          cart.quantity
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        InkWell(
+                                                          onTap: () {},
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            size: 12,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -262,7 +272,7 @@ class _CartPageState extends State<CartPage> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
+          padding: const EdgeInsets.only(bottom: 40, left: 15, right: 15),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -272,6 +282,7 @@ class _CartPageState extends State<CartPage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepOrangeAccent,
+                    elevation: 5,
                   ),
                   onPressed: () {},
                   child: Text(

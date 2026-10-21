@@ -26,15 +26,26 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
+      appBar: AppBar(
+        backgroundColor: AppColor.mainColor,
+        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: mTextStyle18(
+            mFontWeight: FontWeight.bold,
+            color: AppColor.white,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter, // Start: upar
-              end: Alignment.bottomCenter, // Stop: neeche
-              colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.topCenter, // Start: upar
+          //     end: Alignment.bottomCenter, // Stop: neeche
+          //     colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+          //   ),
+          // ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
             child: Column(
@@ -82,17 +93,20 @@ class _ProfilePageState extends State<ProfilePage> {
           final profile = state.profileModel.data;
           return Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Profile",
-                    style: mTextStyle20(mFontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+              SizedBox(height: 10),
               // PROFILE CARD
-              Card(
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter, // Start: upar
+                    end: Alignment.bottomRight, // Stop: neeche
+                    colors: [
+                      AppColor.mainColor.withOpacity(0.5),
+                      AppColor.white,
+                    ],
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -154,14 +168,22 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             }
           },
-          child: Card(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter, // Start: upar
+                end: Alignment.bottomRight, // Stop: neeche
+                colors: [AppColor.mainColor.withOpacity(0.5), AppColor.white],
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Text(
                     "My Order",
-                    style: mTextStyle18(mFontWeight: FontWeight.bold),
+                    style: mTextStyle16(mFontWeight: FontWeight.bold),
                   ),
                   Spacer(),
                   Icon(Icons.arrow_forward_ios, size: 16),

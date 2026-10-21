@@ -15,8 +15,11 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  //
   bool isLoading = false;
   DateFormat df = DateFormat('dd MMM yyyy, hh:mm a');
+  //
+
   @override
   void initState() {
     super.initState();
@@ -26,43 +29,38 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // Start: upar
-            end: Alignment.bottomCenter, // Stop: neeche
-            colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+      backgroundColor: AppColor.white,
+      appBar: AppBar(
+        backgroundColor: AppColor.mainColor,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: AppColor.white, size: 18),
+        ),
+        title: Text(
+          "My Cart",
+          style: mTextStyle18(
+            color: AppColor.white,
+            mFontWeight: FontWeight.bold,
           ),
         ),
+      ),
+      body: Container(
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     begin: Alignment.topCenter, // Start: upar
+        //     end: Alignment.bottomCenter, // Stop: neeche
+        //     colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+        //   ),
+        // ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: 44,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.arrow_back_ios, size: 16),
-                        ),
-                      ),
-                      Text(
-                        "My Cart",
-                        style: mTextStyle18(
-                          // color: AppColor.white,
-                          mFontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 SizedBox(height: 20),
                 BlocConsumer<OrderBloc, OrderState>(
                   listener: (context, state) {
@@ -99,6 +97,8 @@ class _OrderPageState extends State<OrderPage> {
                         itemBuilder: (context, index) {
                           final order = state.getorderModel.orders![index];
                           return Card(
+                            color: AppColor.white,
+                            elevation: 2,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -132,7 +132,7 @@ class _OrderPageState extends State<OrderPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Total: ${order.totalAmount.toString()},",
+                                          "Price : ${order.totalAmount.toString()},",
                                           style: mTextStyle16(
                                             mFontWeight: FontWeight.bold,
                                           ),

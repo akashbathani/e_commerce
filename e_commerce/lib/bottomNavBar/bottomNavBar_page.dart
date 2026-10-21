@@ -61,7 +61,12 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
                     selectedIndex = 0;
                   });
                 },
-                child: Image.asset("asset/image/dashboard.png", height: 22),
+                child: Icon(
+                  Icons.dashboard_outlined,
+                  color: selectedIndex == 0
+                      ? AppColor.mainColor
+                      : AppColor.black,
+                ),
               ),
               InkWell(
                 onTap: () {
@@ -69,8 +74,12 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
                     selectedIndex = 1;
                   });
                 },
-
-                child: Image.asset("asset/image/heart.png", height: 22),
+                child: Icon(
+                  Icons.favorite_border_outlined,
+                  color: selectedIndex == 1
+                      ? AppColor.mainColor
+                      : AppColor.black,
+                ),
               ),
               SizedBox(width: 20),
               InkWell(
@@ -79,7 +88,12 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
                     selectedIndex = 3;
                   });
                 },
-                child: Image.asset("asset/image/trolley.png", height: 22),
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: selectedIndex == 3
+                      ? AppColor.mainColor
+                      : AppColor.black,
+                ),
               ),
               InkWell(
                 onTap: () {
@@ -87,7 +101,12 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
                     selectedIndex = 4;
                   });
                 },
-                child: Image.asset("asset/image/user.png", height: 22),
+                child: Icon(
+                  Icons.person_2_outlined,
+                  color: selectedIndex == 4
+                      ? AppColor.mainColor
+                      : AppColor.black,
+                ),
               ),
             ],
           ),
