@@ -15,7 +15,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  //
   bool isLoading = false;
+
+  //
   @override
   void initState() {
     super.initState();
@@ -38,26 +41,17 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //     begin: Alignment.topCenter, // Start: upar
-          //     end: Alignment.bottomCenter, // Stop: neeche
-          //     colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
-          //   ),
-          // ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //  PRFOILE
-                profileCard(),
-                SizedBox(height: 20),
-                // ORDER
-                orderWidget(),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //  PRFOILE
+              profileCard(),
+              SizedBox(height: 20),
+              // ORDER
+              orderWidget(),
+            ],
           ),
         ),
       ),
@@ -102,13 +96,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     begin: Alignment.topCenter, // Start: upar
                     end: Alignment.bottomRight, // Stop: neeche
                     colors: [
-                      AppColor.mainColor.withOpacity(0.5),
+                      AppColor.mainColor.withValues(alpha: 0.5),
                       AppColor.white,
                     ],
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -121,9 +115,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Text(
                             profile!.name!,
-                            style: mTextStyle16(mFontWeight: FontWeight.bold),
+                            style: mTextStyle18(mFontWeight: FontWeight.bold),
                           ),
-                          Text(profile.email!, style: mTextStyle14()),
+                          Text(profile.email!, style: mTextStyle16()),
                         ],
                       ),
                       Spacer(),
@@ -157,9 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
           onTap: () {
             if (state is ProfileLoadedState) {
               final userId = state.profileModel.data!.id!;
-              // print(
-              //   "===> USER ID : ${state.profileModel.data!.id!}",
-              // );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -174,11 +166,14 @@ class _ProfilePageState extends State<ProfilePage> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter, // Start: upar
                 end: Alignment.bottomRight, // Stop: neeche
-                colors: [AppColor.mainColor.withOpacity(0.5), AppColor.white],
+                colors: [
+                  AppColor.mainColor.withValues(alpha: 0.5),
+                  AppColor.white,
+                ],
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
                   Text(

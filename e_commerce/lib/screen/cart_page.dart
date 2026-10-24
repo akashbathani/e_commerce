@@ -30,6 +30,13 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: AppColor.white, size: 18),
+        ),
         backgroundColor: AppColor.mainColor,
         centerTitle: true,
         title: Text(
@@ -141,46 +148,26 @@ class _CartPageState extends State<CartPage> {
                                                         TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                                BlocBuilder<
-                                                  DeleteCartBloc,
-                                                  DeleteCartState
-                                                >(
-                                                  builder: (context, deleteState) {
-                                                    if (deleteState
-                                                        is DeleteCartLoadingState) {
-                                                      return Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                              color: AppColor
-                                                                  .mainColor,
-                                                            ),
-                                                      );
-                                                    }
 
-                                                    return IconButton(
-                                                      onPressed: () {
-                                                        debugPrint(
-                                                          "Delete pressed: ${cart.id}",
-                                                        );
-
-                                                        context
-                                                            .read<
-                                                              DeleteCartBloc
-                                                            >()
-                                                            .add(
-                                                              DeleteCartEventt(
-                                                                cartId: cart.id
-                                                                    .toString(),
-                                                              ),
-                                                            );
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.delete_outline,
-                                                        color: Colors
-                                                            .deepOrangeAccent,
-                                                      ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    debugPrint(
+                                                      "Delete pressed: ${cart.id}",
                                                     );
+                                                    context
+                                                        .read<DeleteCartBloc>()
+                                                        .add(
+                                                          DeleteCartEventt(
+                                                            cartId: cart.id
+                                                                .toString(),
+                                                          ),
+                                                        );
                                                   },
+                                                  icon: const Icon(
+                                                    Icons.delete_outline,
+                                                    color:
+                                                        Colors.deepOrangeAccent,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -191,9 +178,10 @@ class _CartPageState extends State<CartPage> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  cart.price!,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                  "₹ ${cart.price!}",
+                                                  style: mTextStyle16(
+                                                    mFontWeight:
+                                                        FontWeight.bold,
                                                   ),
                                                 ),
                                                 Container(
@@ -203,7 +191,7 @@ class _CartPageState extends State<CartPage> {
                                                           50,
                                                         ),
                                                     color: AppColor.mainColor
-                                                        .withOpacity(0.7),
+                                                        .withValues(alpha: 0.7),
                                                   ),
                                                   child: Padding(
                                                     padding:

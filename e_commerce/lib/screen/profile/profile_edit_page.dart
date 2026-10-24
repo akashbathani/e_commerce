@@ -28,7 +28,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter, // Start: upar
             end: Alignment.bottomCenter, // Stop: neeche
-            colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+            colors: [AppColor.mainColor.withValues(alpha: 0.7), AppColor.white],
           ),
         ),
         child: Column(

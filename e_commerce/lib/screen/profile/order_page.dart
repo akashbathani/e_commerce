@@ -28,6 +28,7 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(
@@ -41,7 +42,7 @@ class _OrderPageState extends State<OrderPage> {
           icon: Icon(Icons.arrow_back_ios, color: AppColor.white, size: 18),
         ),
         title: Text(
-          "My Cart",
+          "My Order",
           style: mTextStyle18(
             color: AppColor.white,
             mFontWeight: FontWeight.bold,
@@ -49,13 +50,13 @@ class _OrderPageState extends State<OrderPage> {
         ),
       ),
       body: Container(
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     begin: Alignment.topCenter, // Start: upar
-        //     end: Alignment.bottomCenter, // Stop: neeche
-        //     colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
-        //   ),
-        // ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter, // Start: upar
+            end: Alignment.bottomCenter, // Stop: neeche
+            colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+          ),
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -89,7 +90,6 @@ class _OrderPageState extends State<OrderPage> {
                     if (state is OrderFailureState) {
                       return Center(child: Text(state.errorMsg));
                     }
-
                     if (state is OrderLoadedState) {
                       return ListView.builder(
                         shrinkWrap: true,
@@ -110,15 +110,12 @@ class _OrderPageState extends State<OrderPage> {
                                       itemCount: order.product?.length ?? 0,
                                       itemBuilder: (context, index) {
                                         final product = order.product![index];
-                                        return ListTile(
-                                          leading: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  product.image!,
-                                                ),
+                                        return Container(
+                                          height: mq.height * 0.12,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                product.image!,
                                               ),
                                             ),
                                           ),
@@ -131,8 +128,46 @@ class _OrderPageState extends State<OrderPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        order.status == "1"
+                                            ? Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          5,
+                                                        ),
+                                                    color:
+                                                        AppColor.successColor,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                          4.0,
+                                                        ),
+                                                    child: Text(
+                                                      "Ordered",
+                                                      style: mTextStyle16(
+                                                        mFontWeight:
+                                                            FontWeight.bold,
+                                                        color: AppColor.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Text(""),
+
+                                        SizedBox(height: 10),
                                         Text(
                                           "Price : ${order.totalAmount.toString()},",
+                                          style: mTextStyle16(
+                                            mFontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Qty : ${order.product![0].quantity},",
                                           style: mTextStyle16(
                                             mFontWeight: FontWeight.bold,
                                           ),
@@ -143,7 +178,7 @@ class _OrderPageState extends State<OrderPage> {
                                               order.createdAt.toString(),
                                             ),
                                           ),
-                                          style: mTextStyle14(
+                                          style: mTextStyle16(
                                             mFontWeight: FontWeight.bold,
                                           ),
                                         ),

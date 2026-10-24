@@ -30,7 +30,7 @@ class _FavouritePageState extends State<FavouritePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Stay Tuned..!!!",
+                "Winter is coming..!!!",
                 style: mTextStyle24(mFontWeight: FontWeight.bold),
               ),
             ],

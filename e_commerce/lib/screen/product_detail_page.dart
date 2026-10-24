@@ -28,7 +28,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter, // Start: upar
                 end: Alignment.bottomCenter, // Stop: neeche
-                colors: [AppColor.mainColor.withOpacity(0.7), AppColor.white],
+                colors: [
+                  AppColor.mainColor.withValues(alpha: 0.7),
+                  AppColor.white,
+                ],
               ),
             ),
             child: Padding(

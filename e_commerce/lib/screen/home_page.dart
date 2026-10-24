@@ -8,6 +8,7 @@ import 'package:e_commerce/bloc/category/category_state.dart';
 import 'package:e_commerce/bloc/product/product_bloc.dart';
 import 'package:e_commerce/bloc/product/product_event.dart';
 import 'package:e_commerce/bloc/product/product_state.dart';
+import 'package:e_commerce/screen/cart_page.dart';
 import 'package:e_commerce/screen/notification/notification_page.dart';
 import 'package:e_commerce/screen/product_detail_page.dart';
 import 'package:e_commerce/utils/appConstant/app_constant.dart';
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColor.grey.withOpacity(0.3),
+            color: AppColor.grey.withValues(alpha: 0.3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColor.grey.withOpacity(0.3),
+            color: AppColor.grey.withValues(alpha: 0.3),
           ),
           child: Center(
             child: IconButton(
@@ -150,7 +151,7 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(100),
           ),
           filled: true,
-          fillColor: Colors.grey.withOpacity(0.2),
+          fillColor: Colors.grey.withValues(alpha: 0.2),
         ),
       ),
     );
@@ -184,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                           width: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.grey.withOpacity(0.5),
+                            color: Colors.grey.withValues(alpha: 0.5),
                           ),
                         ),
                         SizedBox(height: 5),
@@ -306,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withValues(alpha: 0.1),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,6 +378,12 @@ class _HomePageState extends State<HomePage> {
                               context,
                               "Item added successfully",
                             );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartPage(cartId: "2"),
+                              ),
+                            );
                           }
                         },
                         builder: (context, state) {
@@ -391,9 +398,6 @@ class _HomePageState extends State<HomePage> {
                                 minimumSize: Size(200, 45),
                               ),
                               onPressed: () async {
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-
                                 context.read<AddCartBloc>().add(
                                   AddCartQuantityEvent(
                                     productId: product.id!,
@@ -402,19 +406,13 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 );
                               },
-                              child: isLoading
-                                  ? Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppColor.white,
-                                      ),
-                                    )
-                                  : Text(
-                                      "Add to cart",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
+                              child: Text(
+                                "Add to cart",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           );
                         },

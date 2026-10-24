@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Stay Tuned..!!!",
+                "Winter is coming..!!!",
                 style: mTextStyle24(mFontWeight: FontWeight.bold),
               ),
             ],
